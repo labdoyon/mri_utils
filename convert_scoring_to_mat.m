@@ -21,6 +21,7 @@ for nFile=1:length(allFiles)
     
     splitFilename = strsplit(allFiles(nFile).name,'_');
     subject = splitFilename{2};
+    
     subjectSess = splitFilename{4};
     
     scoringTable = readtable(iPath);
@@ -33,5 +34,11 @@ for nFile=1:length(allFiles)
 
     D.other.CRC.score{3,1} = epoch;
 
+    uv = unique(epoch);
+    n  = histc(epoch,uv)*.5;
+    
+    disp(['Summary (stages in minutes) - subject: ', subject])
+    disp(n)
+    
     save(['DeCoNap_' subject '_Nap_' subjectSess '_scoring.mat'],'D');
 end
